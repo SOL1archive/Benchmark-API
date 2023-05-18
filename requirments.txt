@@ -1,0 +1,3 @@
+pandas
+revChatGPT
+bardapi

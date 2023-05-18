@@ -2,8 +2,7 @@ import pandas as pd
 import requests
 from bardapi import Bard
 
-from questioner import Questioner
-from utils import questions
+from questioner import Questioner, questions
 
 class BardQuestioner(Questioner):
     def __init__(self, config_path, prompt) -> None:
@@ -30,6 +29,6 @@ class BardQuestioner(Questioner):
         return answer
 
 if __name__ == '__main__':
-    questioner = BardQuestioner('bard_config.yaml', 'Answer the following question: ')
+    questioner = BardQuestioner('config/bard_config.yaml', 'Answer the following question: ')
     question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
     answer_df = questions(questioner, question_answer_sheet, 'data/result/bard_answer.csv')

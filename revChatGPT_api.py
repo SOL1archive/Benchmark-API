@@ -21,6 +21,6 @@ class ChatGPTQuestioner(Questioner):
         return answer_text
 
 if __name__ == '__main__':
-    questioner = ChatGPTQuestioner('config/chat_gpt_config.yaml', 'Answer the following question: ')
+    questioner = ChatGPTQuestioner('config/chat_gpt_config.yaml', 'Answer the following question. If the problem is multiple choice, select the choice number: ')
     question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
     answer_df = questions(questioner, question_answer_sheet, 'data/result/chat_gpt_answer.csv')

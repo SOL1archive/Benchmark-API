@@ -29,6 +29,6 @@ class BardQuestioner(Questioner):
         return answer
 
 if __name__ == '__main__':
-    questioner = BardQuestioner('config/bard_config.yaml', 'Answer the following question. If the problem is multiple: ')
+    questioner = BardQuestioner('config/bard_config.yaml', 'Answer the following question. If the problem is multiple choice, select the choice number: ')
     question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
     answer_df = questions(questioner, question_answer_sheet, 'data/result/bard_answer.csv')

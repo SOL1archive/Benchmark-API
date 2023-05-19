@@ -14,7 +14,7 @@ class Questioner:
     
     def mark(self, question, correct):
         answer_text = self.ask_question(question)
-        answer = find_answer(answer_text)
+        answer = find_answer(question, answer_text)
 
         return answer, (answer == correct)
     

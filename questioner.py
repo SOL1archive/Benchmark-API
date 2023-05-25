@@ -1,6 +1,8 @@
 from tqdm import tqdm
 import yaml
+import time
 import pandas as pd
+import numpy as np
 from utils import find_answer
 
 class Questioner:
@@ -9,8 +11,18 @@ class Questioner:
             self.config = yaml.safe_load(f)
         self.prompt = prompt
 
-    def ask_question(self, question):
+    def question(self, question):
         raise NotImplementedError
+    
+    def ask_question(self, question):
+        answer = self.question(question)
+        time.sleep(
+            np.clip(np.random.normal(loc=self.config['delay'], scale=5), 
+                    self.config['delay'] - 5,
+                    self.config['delay'] + 5
+                    )
+        )
+        return answer
     
     def mark(self, question, correct):
         answer_text = self.ask_question(question)

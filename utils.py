@@ -1,5 +1,4 @@
 import re
-import pandas as pd
 
 def find_answer(question, answer_text, is_multiple_choice=True) -> int:
     if is_multiple_choice:

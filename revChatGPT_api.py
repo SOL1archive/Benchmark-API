@@ -1,5 +1,3 @@
-import time
-
 import pandas as pd
 from revChatGPT.V1 import Chatbot
 
@@ -15,12 +13,13 @@ class ChatGPTQuestioner(Questioner):
             'model': 'gpt-4',
         })
 
-    def ask_question(self, question):
+    def question(self, question):
         answer_text = self.chatbot.ask(self.prompt + '\n' + question)
-        time.sleep(self.config['delay'])
         return answer_text
 
 if __name__ == '__main__':
-    questioner = ChatGPTQuestioner('config/chat_gpt_config.yaml', 'Answer the following question. If the problem is multiple choice, select the choice number: ')
+    questioner = ChatGPTQuestioner('config/chat_gpt_config.yaml', 
+                                   prompt='다음 문제를 풀어줘. 선택지가 있으면 선택지를 골라줘.'
+    )
     question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
     answer_df = questions(questioner, question_answer_sheet, 'data/result/chat_gpt_answer.csv')

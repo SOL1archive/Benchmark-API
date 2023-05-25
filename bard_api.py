@@ -9,7 +9,6 @@ class BardQuestioner(Questioner):
         super().__init__(config_path, prompt)
 
         api_key = self.config['api_key']
-        self.prompt = prompt
 
         self.session = requests.Session()
         self.session.headers = {
@@ -24,11 +23,13 @@ class BardQuestioner(Questioner):
 
         self.bard = Bard(token=api_key, session=self.session)
         
-    def ask_question(self, question):
+    def question(self, question):
         answer = self.bard.get_answer(self.prompt + '\n' + question)['content']
         return answer
 
 if __name__ == '__main__':
-    questioner = BardQuestioner('config/bard_config.yaml', 'Answer the following question. If the problem is multiple choice, select the choice number: ')
+    questioner = BardQuestioner('config/bard_config.yaml', 
+                                prompt='다음 문제를 풀어줘. 선택지가 있으면 선택지를 골라줘.'
+    )
     question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
     answer_df = questions(questioner, question_answer_sheet, 'data/result/bard_answer.csv')

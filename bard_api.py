@@ -3,6 +3,7 @@ import requests
 from bardapi import Bard
 
 from questioner import Questioner, questions
+from utils import replace_to_parenthesis
 
 class BardQuestioner(Questioner):
     def __init__(self, config_path, prompt) -> None:
@@ -31,5 +32,6 @@ if __name__ == '__main__':
     questioner = BardQuestioner('config/bard_config.yaml', 
                                 prompt='다음 문제를 풀어줘. 선택지가 있으면 선택지를 골라줘.'
     )
-    question_answer_sheet = pd.read_json('data/question-answer-sheet.json')
+    question_answer_sheet = pd.read_csv('data/KoreanSAT.csv')
+    question_answer_sheet = question_answer_sheet.apply(replace_to_parenthesis, axis=0)
     answer_df = questions(questioner, question_answer_sheet, 'data/result/bard_answer.csv')

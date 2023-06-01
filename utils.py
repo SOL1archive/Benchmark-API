@@ -1,3 +1,4 @@
+import pandas as pd
 import re
 
 def find_answer(question, answer_text, is_multiple_choice=True) -> int:
@@ -28,3 +29,14 @@ def find_answer(question, answer_text, is_multiple_choice=True) -> int:
         choice = answer
     
     return choice
+
+def replace_to_parenthesis(row: pd.Series):
+    for col, data in row.items():
+        if type(data) == str:
+            row[col] = data.replace('①', ' (1)')
+            row[col] = data.replace('②', ' (2)')
+            row[col] = data.replace('③', ' (3)')
+            row[col] = data.replace('④', ' (4)')
+            row[col] = data.replace('⑤', ' (5)')
+
+    return row
